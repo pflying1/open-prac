@@ -26,8 +26,8 @@ export class AppController {
   getTest(): string[] {
     return this.appService.getTest();
   }
-  @Get('main')
+/*   @Get('main')
   async findAll(): Promise<User[]> {
     return this.appService.findAll();
-  }
+  } */
 }

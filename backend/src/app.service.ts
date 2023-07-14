@@ -13,7 +13,7 @@ type UserDocument = User & Document;
 
 @Injectable()
 export class AppService {
-  constructor(@InjectModel('User') private userModel: Model<UserDocument>) {}
+  // constructor(@InjectModel('User') private userModel: Model<UserDocument>) {}
 
   getHello(): object {
     return {
@@ -25,11 +25,11 @@ export class AppService {
     return ['안녕', '하세요'];
   }
 
-  async findAll(): Promise<User[]> {
+ /*  async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
   async createUser(name: string): Promise<User> {
     const newUser = { name };
     return this.userModel.create(newUser);
-  }
+  } */
 }

@@ -1,63 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-function App() {
-  const [hello, setHello] = useState()
-  const [helloWorld, setHelloWorld] = useState("")
-  const [nameData, setNameData] = useState("")
+const App = () => {
+  const [inputPrompt, setInputPrompt] = useState('');
+  const [responseText, setResponseText] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3030/test');
-        const data = await response.json();
-        setHello(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputPrompt(event.target.value);
+  };
 
-    fetchData();
-  }, []);
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const requestBody = { prompt: inputPrompt };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3030/hello');
-        const data = await response.json();
-        setHelloWorld(data.message);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []);
-  useEffect(() => {
-    interface User {
-      _id: string;
-      name: string;
-      __v: number;
-    }
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3030/main');
-        const dataJson = await response.json();
-        const data = dataJson.map((value: User) => value.name)
-        setNameData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    const response = await fetch('/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
 
-    fetchData();
-  }, []);
+    const result = await response.text();
+    setResponseText(result);
+  };
+
   return (
     <div>
-      <div>{hello}</div>
-      <div>{helloWorld}</div>
-      <div>{nameData}</div>
-      <div>시작 하세요.</div>
+      <h1>Chat with Assistant</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Ask a question"
+          onChange={handleInputChange}
+          value={inputPrompt}
+        />
+        <button type="submit">Send</button>
+      </form>
+      <div>
+        <p>Assistant's response:</p>
+        <p>{responseText}</p>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
