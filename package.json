@@ -1,0 +1,22 @@
+{
+  "name": "kdt-2-project-b-4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd frontend && npm run build && cd.. && cd backend && npm run build && node dist/main.js",
+    "start:dev": "cd frontend && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kongukjae/KDT-2-Project-B-4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kongukjae/KDT-2-Project-B-4/issues"
+  },
+  "homepage": "https://github.com/kongukjae/KDT-2-Project-B-4#readme"
+}
